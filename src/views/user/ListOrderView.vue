@@ -1,5 +1,6 @@
 <template>
-  <div class="overflow-x-auto">
+  <NavbarUser />
+  <div class="overflow-x-auto px-6 mt-20">
     <table class="table">
       <!-- head -->
       <thead>
@@ -32,7 +33,12 @@
             {{ order.quantity }}
           </td>
           <td>{{ formatterRupiah.formatPriceToIDR(order.total_price) }}</td>
-          <td>{{ order.status }}</td>
+          <td
+            :class="bgStatus(order.status)"
+            class="w-20 h-8 rounded-lg flex items-center justify-center mt-5"
+          >
+            {{ order.status }}
+          </td>
           <th>
             <button
               class="btn btn-ghost btn-xs"
@@ -48,12 +54,23 @@
 </template>
 
 <script setup>
+import NavbarUser from "@/components/NavbarUser.vue";
 import { apiClient } from "@/services/apiClient";
 import formatterRupiah from "@/services/formatterRupiah";
 import { sha512 } from "js-sha512";
 import { onMounted, ref } from "vue";
 
 const orders = ref([]);
+const bgStatus = (status) => {
+  switch (status) {
+    case "success":
+      return "bg-green-400 text-green-800";
+    case "pending":
+      return "bg-yellow-400 text-yellow-800";
+    case "error":
+      return "bg-red-400 text-red-800";
+  }
+};
 
 const getOrderList = async () => {
   try {
