@@ -35,7 +35,7 @@
           <td>{{ formatterRupiah.formatPriceToIDR(order.total_price) }}</td>
           <td
             :class="bgStatus(order.status)"
-            class="w-20 h-8 rounded-lg flex items-center justify-center mt-5"
+            class="w-20 h-8 rounded-lg flex items-center justify-center px-2 py-1"
           >
             {{ order.status }}
           </td>
